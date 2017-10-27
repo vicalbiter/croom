@@ -40,6 +40,12 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    k = 1
+    while k < n:
+        if n % k == 0:
+            largestfactor = k
+        k += 1
+    return largestfactor
 
 def if_function(condition, true_result, false_result):
     """Return true_result if condition is a true value, and
@@ -75,13 +81,13 @@ def with_if_function():
 
 def c():
     "*** YOUR CODE HERE ***"
-
+    return True
 def t():
     "*** YOUR CODE HERE ***"
-
+    return 1
 def f():
     "*** YOUR CODE HERE ***"
-
+    return 1/0
 def hailstone(n):
     """Print the hailstone sequence starting at n and return its
     length.
@@ -98,3 +104,13 @@ def hailstone(n):
     7
     """
     "*** YOUR CODE HERE ***"
+    k = 1
+    print(n);
+    while n != 1:
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = n*3 + 1
+        print(n)
+        k += 1
+    return k
