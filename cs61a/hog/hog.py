@@ -127,6 +127,7 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             temp = score0
             score0 = score1
             score1 = temp
+        say = say(score0, score1)
     # END PROBLEM 5
     return score0, score1
 
@@ -183,6 +184,10 @@ def both(f, g):
     """
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
+    def say(score0, score1):
+        return both(f(score0, score1), g(score0, score1))
+    return say
+
     # END PROBLEM 6
 
 
@@ -204,6 +209,23 @@ def announce_highest(who, previous_high=0, previous_score=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    def say(score0, score1):
+        nonlocal previous_high
+        nonlocal previous_score
+        if who == 0:
+            score = score0
+        else:
+            score = score1
+        if score > previous_score:
+            dif = score - previous_score
+            if dif > previous_high:
+                if dif - previous_score == 1:
+                    print("1 point! That's the biggest gain yet for Player", who)
+                else:
+                    print(dif, "points! That's the biggest gain yet for Player", who)
+                previous_high = dif
+        return announce_highest(who, previous_high, score)
+    return say
     # END PROBLEM 7
 
 
