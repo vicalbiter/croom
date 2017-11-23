@@ -265,6 +265,15 @@ def make_averaged(fn, num_samples=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def average_function(*args):
+        i = 1
+        total = 0
+        while i <= num_samples:
+            total += fn(*args)
+            i += 1
+        total /= num_samples
+        return total
+    return average_function
     # END PROBLEM 8
 
 
@@ -279,6 +288,17 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    i = 1
+    max = 0
+    rolls = 0
+    while i <= 10:
+        averaged_roll_dice = make_averaged(roll_dice, num_samples)
+        current_score = averaged_roll_dice(i, dice)
+        if current_score > max:
+            rolls = i
+            max = current_score
+        i += 1
+    return rolls
     # END PROBLEM 9
 
 
@@ -303,7 +323,7 @@ def average_win_rate(strategy, baseline=always_roll(4)):
 
 def run_experiments():
     """Run a series of strategy experiments and report results."""
-    if True:  # Change to False when done finding max_scoring_num_rolls
+    if False:  # Change to False when done finding max_scoring_num_rolls
         six_sided_max = max_scoring_num_rolls(six_sided)
         print('Max scoring num rolls for six-sided dice:', six_sided_max)
 
@@ -313,7 +333,7 @@ def run_experiments():
     if False:  # Change to True to test bacon_strategy
         print('bacon_strategy win rate:', average_win_rate(bacon_strategy))
 
-    if False:  # Change to True to test swap_strategy
+    if True:  # Change to True to test swap_strategy
         print('swap_strategy win rate:', average_win_rate(swap_strategy))
 
     if False:  # Change to True to test final_strategy
@@ -327,7 +347,7 @@ def bacon_strategy(score, opponent_score, margin=8, num_rolls=4):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 4  # Replace this statement
+    return 0 if free_bacon(opponent_score) >= margin else num_rolls
     # END PROBLEM 10
 
 
@@ -337,7 +357,8 @@ def swap_strategy(score, opponent_score, margin=8, num_rolls=4):
     NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 4  # Replace this statement
+    return 0 if (is_swap(score + free_bacon(opponent_score), opponent_score) and score < opponent_score) \
+            else bacon_strategy(score, opponent_score, margin, num_rolls)
     # END PROBLEM 11
 
 
