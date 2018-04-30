@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.Stack;
+import java.util.NoSuchElementException;
 
 public class Board {
     
@@ -6,6 +7,9 @@ public class Board {
     private int[][] board;
     
     public Board(int[][] blocks) {
+        
+        if (blocks == null) { throw new IllegalArgumentException(); }
+        
         n = blocks.length;
         board = new int[n][n];
         for (int i = 0; i < blocks.length; i++) {
@@ -62,7 +66,9 @@ public class Board {
     public boolean equals(Object y) {
         if (y == this) { return true; }
         if (y == null) { return false; }
+        if (y.getClass() != this.getClass()) { return false; }
         Board that = (Board) y;
+        if (that.n != this.n) { return false; }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (this.board[i][j] != that.board[i][j]) { return false; }
@@ -149,7 +155,7 @@ public class Board {
     }
     
     public static void main(String[] args) {
-        
+
     }
 }
     
